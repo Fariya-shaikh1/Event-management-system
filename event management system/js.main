@@ -1,0 +1,49 @@
+const homeSection = document.getElementById('home');
+const aboutSection = document.getElementById('about');
+const servicesSection = document.getElementById('services');
+const contactSection = document.getElementById('contact');
+const navLinks = document.querySelectorAll('nav a');
+const getStartedButton = document.querySelector('button');
+
+// Add event listeners
+navLinks.forEach(link => {
+  link.addEventListener('click', event => {
+    event.preventDefault();
+    const sectionId = link.getAttribute('href').slice(1);
+    const section = document.getElementById(sectionId);
+    section.scrollIntoView({ behavior: 'smooth' });
+  });
+});
+
+getStartedButton.addEventListener('click', () => {
+  contactSection.scrollIntoView({ behavior: 'smooth' });
+});
+
+// Form submission handling
+const form = document.querySelector('form');
+form.addEventListener('send', event => {
+  event.preventDefault();
+  const formData = new FormData(form);
+  console.log(formData);
+  // Send form data to server or handle submission logic here
+});
+
+// Mobile navigation
+const mobileNavButton = document.querySelector('.mobile-nav-button');
+const mobileNavMenu = document.querySelector('.mobile-nav-menu');
+mobileNavButton.addEventListener('click', () => {
+  mobileNavMenu.classList.toggle('active');
+});
+
+// Event countdown timer
+const eventDate = new Date('2024-12-31T23:59:59.000Z');
+const countdownTimer = document.querySelector('.countdown-timer');
+setInterval(() => {
+  const now = new Date();
+  const timeRemaining = eventDate.getTime() - now.getTime();
+  const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+  countdownTimer.textContent = `${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`;
+}, 1000);
